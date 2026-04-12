@@ -62,4 +62,4 @@ Repository Structure
 - `team_role_dataset.csv` → processed analysis-ready dataset
 - `DSA210 Project Proposal.pdf` → initial project proposal
 
-
+- A chi-square hypothesis test confirmed a statistically significant relationship between role diversity and match outcomes (p < 0.05).
