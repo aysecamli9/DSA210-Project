@@ -29,14 +29,39 @@ The main research question is:
 
 ---
 
-# 📂 Data Source
-The project uses ranked League of Legends match data and a manually curated champion-to-role mapping file.
-Raw data is stored under `Data/`, while the processed analysis-ready dataset is generated through the pipeline described below.
+#  Data Source
+The primary match dataset was obtained from Kaggle:
+
+- **League of Legends High Elo Ranked Games Dataset**
+- Source: https://www.kaggle.com/datasets/datasnaek/league-of-legends
+- Total matches in raw dataset: **51,498 matches**
+- Time coverage: **Season 9 ranked solo queue matches (2019) in Europe Server**
+
+In addition to the Kaggle match data, champion role metadata was collected using the **official Riot API**, which was used to create `champion_names&roles.json`.
+Raw files are stored under `Data/`, while the processed analysis-ready dataset is generated through the pipeline described below.
 
 ## Data Construction Pipeline
 The final analysis-ready dataset (`team_role_dataset.csv`) was not directly available in raw form.
 It was **constructed through multiple preprocessing and feature engineering steps**:
 
+## Dataset Overview
+The raw match dataset initially contained **51,498 matches**, corresponding to:
+- **102,996 team-level observations**
+- 10 champion IDs per match
+- 1 binary match winner label
+
+After preprocessing and feature engineering, the final `team_role_dataset.csv` contains:
+- **103,080 rows**
+- **8 columns**
+  - 6 role count features
+  - 1 diversity score
+  - 1 win label
+
+##  Class Distribution
+Because each original match contributes **two team rows** (one winner and one loser), the final dataset is naturally balanced:
+- **Wins:** ~50%
+- **Losses:** ~50%
+This balanced label distribution makes the dataset highly suitable for both statistical testing and future predictive modeling.
 
 ### 1) Raw Match Data
 The original `games.csv` file contains match-level League of Legends ranked data, including:
@@ -184,10 +209,10 @@ Additional control analyses were performed:
 These mostly produced **neutral (~50%) win-rate results**, suggesting that:
 
 > **overall diversity matters more than any single role count.**
-> ![Support vs No Support](Figures/Secondary%20Role%20Checks/support_vs_no_support.png)
+
+ ![Support vs No Support](Figures/Secondary%20Role%20Checks/support_vs_no_support.png)
 
 Secondary visualizations are stored in:
-
 `Figures/Secondary Role Checks/`
 
 ---
