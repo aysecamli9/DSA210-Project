@@ -290,6 +290,176 @@ This suggests that **composition structure matters more than isolated role prese
 Future work will extend this analysis into **predictive modeling using machine learning methods**.
 
 
+
+# Machine Learning Analysis
+
+In this phase of the project, various machine learning models were applied to statistically validate and quantify the insights derived during the Exploratory Data Analysis (EDA) phase.
+The primary objective was to go beyond simple outcome prediction and determine the quantitative contribution of specific team composition features to match success.
+To achieve this, two complementary modeling approaches were adopted:
+
+- **Team-wise Analysis:** Each team's composition was evaluated as an independent observation based on its own internal features.  
+- **Match-wise / Delta Analysis:** The relative strategic advantage was modeled by calculating the feature differences (Δ) between competing teams within the same match.
+
+---
+
+# Model Performance Metrics
+
+The performance outputs of the models on the test dataset are presented below:
+
+### Logistic Regression
+- **Accuracy:** 0.52  
+- **Precision:** 0.52  
+- **Recall:** 0.55  
+- **F1-Score:** 0.53  
+
+### Random Forest
+- **Train Accuracy:** 0.5185  
+- **Test Accuracy:** 0.5141  
+
+### Match-wise Delta Model
+- **Accuracy:** 0.52  
+- **Precision (Win Class):** 0.52  
+- **Recall (Win Class):** 0.63  
+- **F1-Score (Win Class):** 0.57  
+
+### 5-Fold Cross Validation
+- **Fold Scores:** [0.518, 0.519, 0.518, 0.518, 0.509]  
+- **Mean Accuracy:** 0.5167  
+
+---
+
+# Statistical Interpretation of Results
+
+All applied models consistently achieved an accuracy rate in the 51–52% range, performing above the threshold of random guessing (50%).
+Based on these data, the following conclusion can be drawn:
+> Team composition contains a tangible but limited predictive signal regarding the match outcome.
+These findings prove that while composition plays a role in the outcome of a match, it is not sufficient to explain the total variance on its own.
+
+---
+
+# Feature Analysis and Interpretability
+
+## Logistic Regression (Linear Effects)
+
+Top positive coefficients (features that increase win probability):
+
+- **Diversity (Role Variety):** +0.078  
+- **Marksman + Support Synergy (Bot Lane Synergy):** +0.060  
+- **Double Fighter:** +0.059  
+- **Support Presence:** +0.040  
+
+Negative coefficients (effects of over-stacking or poor balance):
+
+- Support: -0.100  
+- Assassin: -0.089  
+- Fighter: -0.069  
+- Mage: -0.063  
+
+### Academic Inference
+
+> The positive coefficient for the diversity variable mathematically validates that balanced team structures achieve higher success rates.
+> Regression and delta analyses confirm that role diversity is a more significant determinant of victory than isolated individual champion picks.
+
+---
+
+## Random Forest (Non-linear Effects)
+
+Top feature importance scores:
+
+- **Mage:** 0.149  
+- **Assassin:** 0.133  
+- **Fighter:** 0.123  
+- **Marksman:** 0.101  
+- **Tank:** 0.101  
+
+### Technical Insight
+
+While the Mage and Assassin roles emerged as the most important features in the Random Forest model, they received negative coefficients in Logistic Regression.
+This discrepancy indicates a non-linear relationship between these roles and victory.
+
+This suggests that:
+- Having too few of these roles is ineffective  
+- Having too many of these roles is also ineffective  
+- Maintaining these roles in an optimal balance is critical for success  
+
+---
+
+# Match-Level Relative (Delta) Analysis
+
+To better model competitive dynamics, differences between teams (Delta) were used instead of absolute values:
+
+- ΔMarksman  
+- ΔMage  
+- ΔTank  
+- ΔSupport  
+- ΔFighter  
+- ΔDiversity  
+
+### Critical Coefficients
+
+- **ΔDiversity:** +0.075  
+- **ΔSupport:** +0.039  
+- **ΔMarksman:** +0.010  
+- **ΔAssassin:** -0.050  
+
+### Interpretation
+
+> Possessing higher role diversity than the opponent significantly increases the probability of winning.
+> Relative team advantage provides more explanatory power than absolute composition data.
+
+---
+
+# Visual Analysis
+
+### 1. Confusion Matrix
+
+![Confusion Matrix](Figures/Main%20Findings/Confusion%20Matrix.png)
+
+- Observation: The model shows a tendency to label matches as "Win"  
+- Finding: True Positives = 7170, False Positives = 6879  
+
+This indicates that the model captures general trends but struggles with precise classification.
+
+---
+
+### 2. Delta Diversity vs. Win Rate
+
+![Delta Diversity](Figures/Main%20Findings/Delta%20Diversity.png)
+
+- When ΔDiversity > 0 → win rate > 50%  
+- When ΔDiversity < 0 → win rate < 50%  
+
+This confirms that relative diversity advantage improves success probability.
+
+---
+
+# Model Validation and Stability
+
+The mean accuracy of 51.67% obtained through 5-Fold Cross-Validation, along with low variance between folds, proves that the model:
+
+- Maintains a stable structure  
+- Does not suffer from overfitting  
+- Produces statistically reliable results  
+
+---
+
+# General Evaluation and Conclusion
+
+- Role diversity has a consistent and strong impact on winning  
+- Balanced team compositions outperform extreme distributions  
+- Delta-based features provide deeper insight than absolute values  
+
+Final Note:
+
+The fact that model performance remains around ~52% reflects the multi-dimensional complexity of League of Legends.
+
+External factors such as:
+- player skill  
+- gold advantage  
+- real-time decision-making  
+- map objectives  
+
+play a critical role in determining match outcomes.
 ---
 
 #  Author
