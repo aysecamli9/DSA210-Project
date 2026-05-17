@@ -461,46 +461,36 @@ External factors such as:
 
 play a critical role in determining match outcomes.
 ---
----
+
 
 # How to Reproduce the Analysis
-
-1. Clone the repository:
-
-```bash
+Clone the repository:
 git clone https://github.com/aysecamli9/DSA210-Project.git
-
 Install the required libraries:
 pip install -r requirements.txt
-
-Open the notebook:
-https://github.com/aysecamli9/DSA210-Project/blob/main/Notebook/DSA_210_Project_Data_Analysis.ipynb
-
+Open the notebook: Notebook/DSA210 Project Data Analysis.ipynb
 Run all notebook cells sequentially.
 
 
-
-**Final Report**
+# Final Report
 The complete final report is available in: Final Report.pdf
 
 
-
-**AI Assistance Disclosure**
+# AI Assistance Disclosure
 AI tools (ChatGPT) were extensively used throughout the project for:
-
-code generation,
-debugging,
-notebook structuring,
-markdown formatting,
-interpretation support,
-and report organization.
+code generation
+debugging
+notebook structuring
+markdown formatting
+interpretation support
+report organization
 
 The generated outputs mainly consisted of:
-Python code snippets,
-markdown explanations,
-debugging suggestions,
-report text drafts,
-and interpretation support.
+Python code snippets
+markdown explanations
+debugging suggestions
+report text drafts
+interpretation support
 
 All project decisions, dataset selection, research direction, experimental design, and final evaluations were reviewed and approved by the author.
 
